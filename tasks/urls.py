@@ -10,7 +10,9 @@ router.register(r'tasks',TaskViewSet)
 
 urlpatterns=[
     path('api/',include(router.urls)),
-    path('',task_list)
+    path('blog/',task_list),
+    path('',register_page),
+     path('api/register/', RegisterAPI.as_view()), 
 ]
 
 
