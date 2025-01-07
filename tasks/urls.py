@@ -1,20 +1,21 @@
-from django.urls import path,include
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
+router = DefaultRouter()
+router.register(r'tasks', TaskViewSet)
 
-router=DefaultRouter()
-router.register(r'tasks',TaskViewSet)
-
-urlpatterns=[
-    path('api/',include(router.urls)),
-    path('blog/',task_list),
-    path('',register_page),
-     path('api/register/', RegisterAPI.as_view()), 
+urlpatterns = [
+    path('api/', include(router.urls)),
+    path('blog/', task_list, name='task-list'),
+    path('', register_page, name='register-page'),
+    path('api/register/', RegisterAPI.as_view(), name='register-api'),
+    path('api/login/', LoginAPI.as_view(), name='login-api'),
+    path('login/', login_view, name='login-page'),
+    path('api/some-protected-endpoint/', ProtectedEndpoint.as_view(), name='protected-endpoint'),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
