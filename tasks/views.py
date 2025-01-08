@@ -37,19 +37,22 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
 
 
-class ProtectedEndpoint(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        return Response({"message": "This is a protected endpoint"})
-
-
 @api_view(['POST'])
 def login(request):
     serializer = LoginSerializer(data=request.data)
     if serializer.is_valid():
         return Response({'message': 'Success'})
     return Response(serializer.errors)
+
+
+class BlogCreateView(APIView):
+
+    def post(self, request):
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(author=request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 
 def task_list(request):
@@ -63,3 +66,6 @@ def register_page(request):
 
 def login_view(request):
     return render(request, 'tasks/login.html')
+
+def add_task(request):
+    return render(request,'tasks/add_task.html')

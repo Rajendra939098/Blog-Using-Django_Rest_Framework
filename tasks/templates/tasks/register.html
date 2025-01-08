@@ -155,7 +155,7 @@
             console.log("Response from server:", data);  // Log the server response for debugging
             if (data.status === 'success') {
                 alert('Registration successful!');
-                window.location.href = '/blog';  // Redirect to blog page
+                window.location.href = '/api/login';  // Redirect to blog page
             } else {
                 alert('Error: ' + JSON.stringify(data.message));
             }

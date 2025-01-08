@@ -13,8 +13,10 @@ urlpatterns = [
     path('', register_page, name='register-page'),
     path('api/register/', RegisterAPI.as_view(), name='register-api'),
     path('api/login/', LoginAPI.as_view(), name='login-api'),
+    path('api/blog/',BlogCreateView.as_view()),
+    path('add_blog/',add_task),
     path('login/', login_view, name='login-page'),
-    path('api/some-protected-endpoint/', ProtectedEndpoint.as_view(), name='protected-endpoint'),
+    
 ]
 
 if settings.DEBUG:
